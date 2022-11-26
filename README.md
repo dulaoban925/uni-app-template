@@ -1,5 +1,4 @@
-# 智能报账商旅平台移动端
-> 注：本系统目前只部署 **H5平台**，暂不涉及其他平台
+# UNI-APP 前端工程模板
 
 ## 启动
 ### 1.拉取代码
@@ -20,11 +19,11 @@
 ### 3.运行工程   
   控制台执行命令：
   ```
-  npm run dev:h5
+  npm run dev:[%platform%]
   ```
 
 ## 编译   
   控制台执行命令：
   ```
-  npm run build:h5
+  npm run build:[%platform%]
   ```
