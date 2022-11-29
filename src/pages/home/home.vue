@@ -20,12 +20,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from '@/hooks'
+
 const title = ref(import.meta.env.VITE_APP_TITLE)
 
 const router = useRouter()
 
 const goToDemo = () => {
-  router.replace({
+  router.push({
     url: '/pages/demo/demo',
     query: {
       a: 1

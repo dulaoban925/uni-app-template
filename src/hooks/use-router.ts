@@ -76,7 +76,6 @@ export function useRouter() {
    * }
    */
   const push = (options: CustomNavigateToOptions | string) => {
-    debugger
     const parsedOptions = parseNavigatorOptions(options)
     parsedOptions && uni.navigateTo(parsedOptions)
   }
