@@ -4,15 +4,15 @@
 import { forEach as forEachUtil } from '@/utils'
 
 export interface Handler {
-  fulfilled: VoidFunction
-  rejected: VoidFunction
+  fulfilled: (args: any) => void
+  rejected: (args: any) => void
 }
 
 export default class InterceptorManager {
   handlers: (Handler | null)[] = []
 
   // 添加拦截器
-  use(fulfilled: VoidFunction, rejected: VoidFunction): number {
+  use(fulfilled: (args: any) => void, rejected: (args: any) => void): number {
     this.handlers.push({
       fulfilled,
       rejected

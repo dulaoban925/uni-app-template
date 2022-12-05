@@ -12,20 +12,24 @@ const request = oriRequest.create({
 } as CustomRequestOptions)
 
 request.interceptors.request.use(
-  () => {
+  (config: CustomRequestOptions) => {
     // 请求拦截器成功回调
+    console.log(config)
   },
-  () => {
+  err => {
     // 请求拦截器失败回调
+    console.log(err)
   }
 )
 
 request.interceptors.response.use(
-  () => {
+  res => {
     // 响应拦截器成功回调
+    console.log(res)
   },
-  () => {
-    // 响应拦截器失败回调
+  err => {
+    // 响应拦a截器失败回调
+    console.log(err)
   }
 )
 

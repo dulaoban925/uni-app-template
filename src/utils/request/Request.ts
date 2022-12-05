@@ -58,7 +58,7 @@ export class Request {
     ).toUpperCase() as RequestConfigMethod
 
     // 请求拦截器链
-    const requestInterceptorChain: VoidFunction[] = []
+    const requestInterceptorChain: ((args: any) => void)[] = []
     this.interceptors.request.forEach((interceptor: Handler) => {
       requestInterceptorChain.unshift(
         interceptor.fulfilled,
@@ -66,7 +66,7 @@ export class Request {
       )
     })
     // 响应拦截器链
-    const responseInterceptorChian: VoidFunction[] = []
+    const responseInterceptorChian: ((args: any) => void)[] = []
     this.interceptors.response.forEach((interceptor: Handler) => {
       responseInterceptorChian.push(interceptor.fulfilled, interceptor.rejected)
     })
