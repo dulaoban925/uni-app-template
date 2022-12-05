@@ -3,7 +3,6 @@
  * @anchor SuperYing
  * @date 2022/11/24 20:10:51
  */
-
 // 缓存信息结果类型
 interface StorageInfoResult {
   keys: string[]
@@ -17,17 +16,17 @@ export function getStorageInfo(): StorageInfoResult {
 }
 
 // 设置缓存
-export function setStorage(key: string, data: any) {
+export function setStorageItem(key: string, data: any) {
   uni.setStorageSync(key, data)
 }
 
 // 根据 key 获取缓存
-export function getStorage(key: string) {
+export function getStorageItem(key: string) {
   return uni.getStorageSync(key)
 }
 
 // 移除指定缓存
-export function removeStorage(key: string) {
+export function removeStorageItem(key: string) {
   uni.removeStorageSync(key)
 }
 
@@ -37,6 +36,6 @@ export function clearStorage() {
 }
 
 // 判断是否存在 key 对应的缓存
-export function hasStorage(key: string) {
-  return !!getStorage(key)
+export function hasStorageItem(key: string) {
+  return !!getStorageItem(key)
 }

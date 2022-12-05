@@ -34,6 +34,7 @@ const handleQueryOption = (options: CustomNavigateToOptions) => {
 }
 
 // 处理 params 参数
+// TODO: 确定时机清空路由参数对象，如 back，退出应用等
 const handleParamsOption = (options: CustomNavigateToOptions) => {
   const { url, params } = options
   if (params) {

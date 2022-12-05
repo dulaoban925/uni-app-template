@@ -3,6 +3,7 @@
  * @anchor SuperYing
  * @date 2022/11/23 20:19:28
  */
+import InterceptorManager from '@/utils/request/InterceptorManager'
 
 // 请求方法类型
 export type RequestConfigMethod =
@@ -16,26 +17,28 @@ export type RequestConfigMethod =
   | 'TRACE'
 
 // 请求配置
-export interface RequestConfig {
-  url: string
-  data: Record<string, any> | string
-  header?: Record<string, any>
-  method?: RequestConfigMethod
-  timeout?: number
-  dataType?: string
-  responseType?: string
-  sslVerify?: string
-  withCredentials?: string
-  firstIpv4?: string
-  success?: () => void
-  fail?: () => void
-  complete?: () => void
+type UniRequestOptions = UniApp.RequestOptions
+
+// 请求成功回调参数类型
+export type UniRequestSuccessCallbackResult =
+  UniApp.RequestSuccessCallbackResult
+
+// 请求通用回调参数类型
+export type UniGeneralCallbackResult = UniApp.GeneralCallbackResult
+export interface CustomRequestOptions extends UniRequestOptions {
+  baseURL?: string
 }
 
-// 请求成功回调函数结果类型
-export interface RequestResponse {
-  data: Record<string, any> | string
-  statusCode: number
-  header: object
-  cookies: string[]
+// 拦截器
+export interface RequestInterceptor {
+  request: InterceptorManager
+  response: InterceptorManager
+}
+
+export interface RequestInstance {
+  defaults: CustomRequestOptions
+  interceptors: RequestInterceptor
+  create: (config: CustomRequestOptions) => RequestInstance
+  request: (config: CustomRequestOptions) => Promise<any>
+  (config: CustomRequestOptions): Promise<any>
 }
