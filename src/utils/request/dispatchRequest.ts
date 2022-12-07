@@ -8,7 +8,7 @@ import {
   UniRequestSuccessCallbackResult,
   UniGeneralCallbackResult
 } from '@/types/request'
-import { buildFullPath } from './helpers'
+import { buildFullPath, buildURL } from './helpers'
 
 export default function dispatchRequest(
   config: CustomRequestOptions
@@ -17,7 +17,10 @@ export default function dispatchRequest(
     // 保证 header 配置项存在
     config.header = config.header || {}
     // 合并 url
-    config.url = buildFullPath(config.baseURL ?? '', config.url)
+    config.url = buildURL(
+      buildFullPath(config.baseURL ?? '', config.url),
+      config.params
+    )
     // 设置 success 回调
     config.success = (result: UniRequestSuccessCallbackResult) => {
       // 自定义 success 配置

@@ -4,12 +4,73 @@
  * @date 2022/12/01 10:12:23
  */
 import { CustomRequestOptions } from '@/types/request'
-import { isPlainObject, merge, isArray, forEach, isUndefined } from '@/utils'
+import {
+  isPlainObject,
+  merge,
+  isArray,
+  forEach,
+  isUndefined,
+  isDate,
+  isObject,
+  isURLSearchParams
+} from '@/utils'
 
 // 判断传入的 url 是否为绝对路径
 export function isAbsoluteURL(url: string): boolean {
   // 若以 "<scheme>://" 或 "//" 开头，即为绝对路径
   return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url)
+}
+
+// 编码
+function encode(val: string) {
+  return encodeURIComponent(val)
+    .replace(/%3A/gi, ':')
+    .replace(/%24/g, '$')
+    .replace(/%2C/gi, ',')
+    .replace(/%20/g, '+')
+    .replace(/%5B/gi, '[')
+    .replace(/%5D/gi, ']')
+}
+
+// 序列化 params，整合进 url
+export function buildURL(url: string, params: any) {
+  console.log(params)
+  if (!params) return url
+  let serializedParams = ''
+  if (isURLSearchParams(params)) {
+    serializedParams = params.toString()
+  } else {
+    const parts: string[] = []
+
+    forEach(params, (val, key) => {
+      console.log(key)
+      if (val === null || typeof val === 'undefined') return
+      if (isArray(val)) {
+        key = `${key}[]`
+      } else {
+        val = [val]
+      }
+
+      forEach(val, v => {
+        if (isDate(v)) {
+          v = v.toISOString()
+        } else if (isObject(v)) {
+          v = JSON.stringify(v)
+        }
+        parts.push(`${encode(key as string)}=${encode(v)}`)
+      })
+    })
+    serializedParams = parts.join('&')
+  }
+  if (serializedParams) {
+    const hashMarkIndex = url.indexOf('#')
+    if (hashMarkIndex !== -1) {
+      url = url.slice(0, hashMarkIndex)
+    }
+    const paramsConnector = url.indexOf('?') === -1 ? '?' : '&'
+    url += `${paramsConnector}${serializedParams}`
+  }
+  return url
 }
 
 // 合并 baseURL 和 relativeURL

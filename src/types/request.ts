@@ -27,6 +27,7 @@ export type UniRequestSuccessCallbackResult =
 export type UniGeneralCallbackResult = UniApp.GeneralCallbackResult
 export interface CustomRequestOptions extends UniRequestOptions {
   baseURL?: string
+  params?: Record<string, any>
 }
 
 // 拦截器

@@ -15,6 +15,9 @@ import { bind, extend, mergeConfig } from './helpers'
 import type { Handler } from './InterceptorManager'
 import dispatchRequest from './dispatchRequest'
 
+/**
+ * 请求类，可用于基于业务的更细粒度的二次封装
+ */
 export class Request {
   defaults: CustomRequestOptions
   interceptors: RequestInterceptor

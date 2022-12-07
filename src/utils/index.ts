@@ -14,6 +14,13 @@ export function isUndefined(val: any) {
   return typeof val === 'undefined'
 }
 
+// 判断对象是否为 URLSearchParams 类型
+export function isURLSearchParams(val: any) {
+  return (
+    typeof URLSearchParams !== 'undefined' && val instanceof URLSearchParams
+  )
+}
+
 /**
  * 遍历数组 or 对象，并对每一个元素执行自定义方法
  * @param {Object|Array} obj 遍历的对象
