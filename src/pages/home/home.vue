@@ -4,21 +4,10 @@
     <view class="text-area">
       <text class="title" @click="goToDemo">{{ title }}</text>
     </view>
-    <uni-section title="基础用法" type="line" padding>
-      <view class="example-body">
-        <uni-badge class="uni-badge-left-margin" text="1" />
-        <uni-badge class="uni-badge-left-margin" text="2" type="primary" />
-        <uni-badge class="uni-badge-left-margin" text="34" type="success" />
-        <uni-badge class="uni-badge-left-margin" text="45" type="warning" />
-        <uni-badge class="uni-badge-left-margin" text="123" type="info" />
-      </view>
-    </uni-section>
-    <navigator url="/pages/demo/demo">goToDemo</navigator>
   </view>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import { useRouter } from '@/hooks'
 
 const title = ref(import.meta.env.VITE_APP_TITLE)
