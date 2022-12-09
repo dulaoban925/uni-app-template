@@ -15,9 +15,6 @@ import { bind, extend, mergeConfig } from './helpers'
 import type { Handler } from './InterceptorManager'
 import dispatchRequest from './dispatchRequest'
 
-/**
- * 请求类，可用于基于业务的更细粒度的二次封装
- */
 export class Request {
   defaults: CustomRequestOptions
   interceptors: RequestInterceptor
@@ -60,6 +57,7 @@ export class Request {
       'get'
     ).toUpperCase() as RequestConfigMethod
 
+    console.log('Request', config)
     // 请求拦截器链
     const requestInterceptorChain: ((args: any) => void)[] = []
     this.interceptors.request.forEach((interceptor: Handler) => {
@@ -76,7 +74,9 @@ export class Request {
     // 执行链，初始值添加 undefined 是因为执行链都是成对出现的，不加 undefined，可能后续取执行函数时出错
     const chain: any[] = [dispatchRequest, undefined]
     chain.unshift(...requestInterceptorChain)
-    chain.push([...responseInterceptorChian])
+    chain.push(...responseInterceptorChian)
+
+    console.log(chain)
 
     let promise = Promise.resolve(config)
     while (chain.length) {

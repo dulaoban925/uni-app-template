@@ -2,6 +2,7 @@ import { isArray, isPlainObject } from '@vue/shared'
 export * from '@vue/shared'
 export { default as request } from './request'
 export * from './local-storage'
+export * from './auth'
 
 // 获取当前页面栈信息
 export function getCurrentPage() {
@@ -78,4 +79,24 @@ export function merge(...args: any[]) {
     forEach(args[i], assignValue)
   }
   return result
+}
+
+// 获取浏览器url携带的参数
+export function getQuery() {
+  const href = location.href
+  const queryIndex = href.lastIndexOf('?')
+  return queryIndex > -1 ? href.slice(queryIndex + 1) : ''
+}
+
+// 解析浏览器url参数为key-value的结构
+export function parseQuery(query: string) {
+  const res: Record<string, string> = {}
+  query &&
+    query.split('&').forEach(item => {
+      const paramMap = item.replace(/\+/g, '').split('=')
+      const key = decodeURIComponent(paramMap[0])
+      const value = decodeURIComponent(paramMap[1])
+      res[key] = value
+    })
+  return res
 }

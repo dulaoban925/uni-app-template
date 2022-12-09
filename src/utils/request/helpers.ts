@@ -21,7 +21,6 @@ export function isAbsoluteURL(url: string): boolean {
   return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url)
 }
 
-// 编码
 function encode(val: string) {
   return encodeURIComponent(val)
     .replace(/%3A/gi, ':')
@@ -34,7 +33,6 @@ function encode(val: string) {
 
 // 序列化 params，整合进 url
 export function buildURL(url: string, params: any) {
-  console.log(params)
   if (!params) return url
   let serializedParams = ''
   if (isURLSearchParams(params)) {
@@ -43,7 +41,6 @@ export function buildURL(url: string, params: any) {
     const parts: string[] = []
 
     forEach(params, (val, key) => {
-      console.log(key)
       if (val === null || typeof val === 'undefined') return
       if (isArray(val)) {
         key = `${key}[]`
@@ -98,7 +95,7 @@ export function mergeConfig(
   // 直接使用 config2 的配置项
   const valueFromConfig2Keys = ['url', 'method', 'data']
   // 深度合并的配置项
-  const mergeDeepPropKeys = ['header']
+  const mergeDeepPropKeys = ['header', 'params']
   // 允许默认，但是会使用 config2 覆盖的配置项
   const defaultToConfig2Keys = [
     'baseURL',
@@ -171,7 +168,6 @@ export function bind(
 // 将 source 的所有属性及属性值添加到 target 上，若source 的属性值函数，则执行上下文为 context
 export function extend(target: any, source: any, context?: any) {
   forEach(source, (val, key) => {
-    console.log(context ? 'prototype' : 'context', val, key)
     if (context && typeof val === 'function') {
       target[key] = bind(val, context)
     } else {

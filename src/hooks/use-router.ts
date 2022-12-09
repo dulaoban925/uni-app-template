@@ -101,7 +101,7 @@ export function useRouter() {
 
   // 获取 query
   const getQuery = () => {
-    const hrefSearch = location.href.split('?')[1]
+    const hrefSearch = location.href?.split('?')[1]
     if (!hrefSearch) return
     const query: any = {}
     for (const [key, value] of new URLSearchParams(hrefSearch)) {
